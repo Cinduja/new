@@ -28,28 +28,17 @@ export class AppComponent {
   isbold=true;
   isitalics=false;
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: '12'},
-    {value: 'pizza-1', viewValue: '14'},
-    {value: 'tacos-2', viewValue: '16'},
-    {value: 'tacos-2', viewValue: '20'},
-    {value: 'tacos-2', viewValue: '24'},
-    {value: 'tacos-2', viewValue: '32'},
-  ];
-
-  cars: Car[] = [
-    {value: 'volvo', viewValue: '12'},
-    {value: 'saab', viewValue: '24'},
-    {value: 'mercedes', viewValue: '16'},
-    {value: 'mercedes', viewValue: '20'},
-    {value: 'mercedes', viewValue: '24'},
-    {value: 'mercedes', viewValue: '32'},
-  ];
-
-bold() {
+  bold() {
     this.toggle = !(this.toggle);
+    console.log(this.toggle)
+    debugger;
     this.status = this.toggle ? 'UnBold' : 'Bold';
-    this.isbold=false;
+    console.log(this.status)
+    if(this.toggle==true)
+    { this.isbold=true;}
+    else
+    { this.isbold=false;}
+   
     
 }
 italics(){
