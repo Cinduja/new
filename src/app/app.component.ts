@@ -1,13 +1,6 @@
-import { Component } from '@angular/core';
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
-interface Car {
-  value: string;
-  viewValue: string;
-}
+import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -15,39 +8,51 @@ interface Car {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'texteditor';
-  selectedValue: string='';
-  selectedCar: string='';
-  toggle = true;
-  status='UnBold';
-  bold_class='text_type_bold';
-  toggle_italics=true;
-  toggle_status='Italics';
-  toggle_underline=true;
-  underline_status='Underlined';
-  isbold=true;
-  isitalics=false;
+  @ViewChild('editor') el:ElementRef;
+  text: any;
 
-  bold() {
-    this.toggle = !(this.toggle);
-    console.log(this.toggle)
-    debugger;
-    this.status = this.toggle ? 'UnBold' : 'Bold';
-    console.log(this.status)
-    if(this.toggle==true)
-    { this.isbold=true;}
-    else
-    { this.isbold=false;}
-   
+  constructor(private element:ElementRef,private renderer:Renderer2)
+  {
     
+  }
+
+  // ngOnInit() {
+  //   this.getSelectionText();
+  // }
+  //  getSelectionText() {
+  //   var text = "";
+  //   var selection=document.getSelection();
+  //   if (window.getSelection.toString()!="") {
+  //     debugger;
+  //       text = window.getSelection.toString();
+  //   } else if(selection &&selection.type!= "Control") {
+  //      var textRange= document.createRange();
+  //      alert(textRange.toString())
+  //      return textRange.toString();
+  //   }
+  //   return text;
+// }
+
+    
+  
+   formatDoc(sCmd:any, sValue:any) {
+     debugger;
+     if(window.getSelection().toString()!='')
+     {
+       this.text=window.getSelection().toString();
+// const domparser=new DOMParser();
+// var div = document.createElement('div');
+// div.innerHTML=this.text.trim();
+// change this to div.childNodes to support multiple top-level nodes.
+// this.text=div.firstChild;
+   }
+   else
+   {
+     this.text=this.el.nativeElement;
+   }  
+   this.renderer.setStyle(this.el.nativeElement,sCmd,sValue);
+     
+  }
 }
-italics(){
-  this.toggle_italics = !this.toggle_italics;
-  this.toggle_status = this.toggle_italics?'Italics':'Normal';
-  this.isitalics=false;
-}
-underlined(){
-  this.toggle_underline = !this.toggle_underline;
-  this.underline_status = this.toggle_underline?'Underlined':'Remove Underline';
-}
-}
+
+
